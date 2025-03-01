@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
-import Home from './Pages/Home/Home'
-import Login from './Pages/Login/Login'
-import Player from './Pages/Player/Player'
+import React, { useEffect, Suspense, lazy } from 'react'
+
+const Home = lazy(() => import('./Pages/Home/Home'));
+const Login = lazy(() => import('./Pages/Login/Login'));
+const Player = lazy(() => import('./Pages/Player/Player'));
 import { Routes,Route, useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase'
@@ -30,11 +31,13 @@ const App = () => {
   return (
     <div>
       <ToastContainer theme='dark' />
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path='/player/:id'element={<Player/>} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/player/:id' element={<Player />} />
+        </Routes>
+      </Suspense>
       
     </div>
   )
