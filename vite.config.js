@@ -4,12 +4,13 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: "/Netflix-Clone-React/",
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
-          // Define your manual chunks here
-          // Example: vendor: ['react', 'react-dom']
+          vendor: ['react', 'react-dom', 'react-router-dom'], // Added react-router-dom for chunking
+          // You can add more chunks as needed
         },
       },
     },
